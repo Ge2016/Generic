@@ -1,0 +1,162 @@
+import java.util.Iterator;
+
+/** 
+ * Programming Assignment 3 - 10.8.19
+ * In this assignment, the GenericSortedArrayBag class is use to implement a generic and sorted bag collection.
+ * It should be a to maintain a sorted list of anything. 
+ * @author 
+ * 	Ge xiong
+ **/
+
+public class GenericSortedArrayBag<E extends Comparable> {
+
+	private Object[] data;
+	private int manyItems;
+	
+	public GenericSortedArrayBag(int size) {
+		this.data = new Object [size];
+		this.manyItems = 0;
+	}
+	/**
+	 * Inserts elements from the Car class to the collection.
+	 * @param carMake, carYear
+	 *  paste the 2-arg constructor from the Car class 
+	 * @return - none
+	 */
+	public void insert(Object element) {
+		this.data[manyItems] = element;
+		this.manyItems++;
+	}
+	/**
+	 * Calls the equals method in the Car class to compare the current elements in the collection with the input element.
+	 * @param target
+	 *  takes an input of type E
+	 * @return
+	 *  returns the total count of occurrences 
+	 */
+	public int countOccurences(E target) {  
+		int count = 0;
+		for (int i=0 ; i < this.manyItems; i++)
+			if(data[i].equals(target)) 
+				count++;
+		return count;
+	}
+	/**
+	 * The delete method takes an input of type E and deletes one occurrence of E from the collection if any.
+	 * @param target
+	 *  takes an input of type E
+	 * @return - none
+	 */
+	public boolean delete(E target) {
+	//sort
+		for (int i=0; i < manyItems; i++)
+			if(data[i].equals(target)) {
+				data[i] = data[manyItems-1];
+				this.manyItems--;
+				return true;
+			}
+		return false;
+	}
+	/**
+	 * This method returns a String representation of the collection.
+	 * @param - none
+	 * @return
+	 * 	prints a String format
+	 */
+	public String toString() {
+		String str = String.format("%-15s\t%-15s\n", "Car", "Year");
+		for(int i = 0; i < manyItems; i++) {
+			str+= String.format("%-15s\t%-15s\n", ((Car) data[i]).getCarMake(), ((Car) data[i]).getCarYear());
+		}
+		return str;
+	}
+	/**
+	 * The method then counts and returns how many elements in the collection fall in the range between start and end inclusive. 
+	 * @param start, end
+	 *  count range inputed type E by user
+	 * @return
+	 * 	the total that falls in the range
+	 */
+	public int countRange(E start, E end) {
+		int count = 0;
+		if (end.compareTo(start) < 0)
+			return 0;
+		else
+			for(int i = 0; i < manyItems; i++)
+				if(start.compareTo(data[i]) <= end.compareTo(data[i]) && 
+						end.compareTo(data[i]) <= start.compareTo(data[i]))				
+				count++;
+		return count;
+	}
+	/**
+	 * The method then searches the collection for an element that is equal to oldThing. 
+	 * If found, the method replaces (only one occurrence of) oldThing with newThing while maintaining the sorted order.
+	 * @param oldThing, newThing
+	 *  replaces any type inputed by user with the old item
+	 * @return
+	 *  the method then returns true or false based on whether a replacement took place or not.  
+	 */
+	public boolean replace(E oldThing, E newThing){
+		//sort
+		for (int i= 0; i < this.manyItems; i++) {
+			if (oldThing.equals(data[i]))
+				oldThing = newThing;
+				return true;
+		}
+		return false;
+	}
+	/**
+	 * Outputs the element that is stored at position index in the collection or null if index is beyond the size of the collection. 
+	 * @param index
+	 *  inputs a number to call for the index of an element in the collection
+	 * @return 
+	 *  bag element that is located at index
+	 */
+	public E grab(int index){
+		Object output = null;
+		if (index < this.manyItems)
+			output = (Car) this.data[index];
+		return (E) output;
+	}
+	/**
+	 * Returns the number of elements in the collection.
+	 * @param - none
+	 * @return
+	 *  total size of elements in collection
+	 */
+	public int size() {
+		return this.manyItems;
+	}
+	/**
+	 * Finds similar contents and outputs true
+	 * @param <E>
+	 * 	creates another generic class to compare
+	 * @return
+	 *  returns true if the input bag includes the same elements as the current bag
+	 */
+	public boolean sameContents(GenericSortedArrayBag<E> content) {
+		for (int i= 0; i < this.manyItems; i++) {
+			if (content.equals(this.data[i]))
+				return true;
+		}	
+		return false;
+	}
+	/**
+	 * Nested class of Iterator. 
+	 * Iterate over all items in the collection. 
+	 */
+	public class GenericSortedArrayBagIterator implements Iterator<E>{
+		int index = 0;
+		public boolean hasNext(){
+			if (index < manyItems)
+				return true;
+			else 
+				return false;
+		}
+		public E next() {
+			Object output = data[index];
+				index++;
+			return (E) output;
+		}
+	}
+}
