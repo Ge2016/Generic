@@ -1,0 +1,85 @@
+/** 
+ * Programming Assignment 3 - 10.8.19
+ * MyThing class as an example of a Thing to be added to your collection. 
+ * @author 
+ * 	Ge xiong
+ **/
+
+public class Car implements Comparable<Car>{
+	private String carMake;
+	private int carYear;
+	
+	public Car() {
+	}
+	public Car(String carMake) {
+		this.carMake = carMake;
+		this.carYear = 0;
+	}
+	public Car(String carMake, int carYear) {
+		this.carMake = carMake;
+		this.carYear = carYear;
+	}
+	
+	public String getCarMake() {
+		return carMake;
+	}
+	public void setCarMake(String carMake) {
+		this.carMake = carMake;
+	}
+	public int getCarYear() {
+		return carYear;
+	}
+	public <E> void setCarYear(E carYear) {
+		this.carYear = (int) carYear;
+	}
+	
+	/**
+	 *  Compares if the object create is equal, larger, smaller than the current carMake. 
+	 *  This comparison uses each Strings and convert them to a #, based on their Unicode value, to be compare
+	 *  @param car1
+	 *   creates an object to be compared 
+	 *  @return
+	 *   0 = equal to
+	 *   1 = larger than
+	 *  -1 = smaller than 
+	 */
+	public int compareTo(Car car1) {
+		int value = 0;
+		if (this.carMake.compareToIgnoreCase(car1.carMake) == value) {
+			return 0;
+		}
+		else if (this.carMake.compareToIgnoreCase(car1.carMake) > value) {
+			return 1;
+		}
+		else 
+			return -1;
+	}
+	/**
+	 *  This method that takes an Object parameter and returns true or false based on whether the input object is equal to the current thing or not.
+	 *  @param car2
+	 *   creates an object in the driver class to be compared
+	 *  @return
+	 *   true =  input object is same as Car 
+	 */
+	public boolean equals(Object car2) {
+		   boolean output = false;   
+		   if (car2 instanceof Car){    
+			   if (((Car)car2).carMake.equalsIgnoreCase(this.carMake) ||
+					   ((Car)car2).carYear == this.carYear)     
+				   output = true;   
+			   }   
+		   else    
+			   output = false;   
+		   return output;  
+	}
+	/**
+	 * Returns a string representation of the class.
+	 * @param - none
+	 * @return
+	 *  returns a String of the instance variables
+	 */
+	public String toString() {
+		return this.carMake + "\t" + this.carYear;
+	}
+}
+
