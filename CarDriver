@@ -1,0 +1,42 @@
+/** 
+ * Programming Assignment 3 - 10.8.19
+ * @author 
+ * 	Ge xiong
+ **/
+
+public class CarDriver {
+	public static void main(String[] args) {
+		GenericSortedArrayBag<Car> col1 = new GenericSortedArrayBag<Car>(10);   
+		col1.insert(new Car("abc",10));   
+		col1.insert(new Car("xyz",30));   
+		col1.insert(new Car("aaa",20));   
+		col1.insert(new Car("def",40));   
+		col1.insert(new Car("aaa",40)); 
+		System.out.print(col1);
+		
+		Car s = new Car("aaa");
+		int sCount = col1.countOccurences(s);   
+		System.out.println("Count of aaa is " + sCount); 
+		
+		System.out.println("s deleted? " + col1.delete(s));   
+		System.out.println(col1);   
+		
+		Car start = new Car("bbb");   
+		Car end = new Car("zzz");   
+		System.out.println("Count range:" + col1.countRange(start, end)); 
+		
+		GenericSortedArrayBag<Car> col2 = new GenericSortedArrayBag<Car>(10); 
+		col2.insert(new Car("aaa",40));   
+		col2.insert(new Car("aaa",30));   
+		col2.insert(new Car("xyz",30));   
+		col2.insert(new Car("def",30));   
+		col2.insert(new Car("abc",30));  
+		System.out.println("Same contents? "+col1.sameContents(col2));   
+		
+		Car t1 = new Car("xyz");   
+		Car t2 = new Car("zzz",200);   
+		col1.replace(t1,t2);   
+		System.out.println(col1); 
+		
+	}
+}
